@@ -1,18 +1,13 @@
 worldX=32
 worldY=24
 
-grid=list()
-for x in range(worldX):
-	grid.append(list())
-	for y in range(worldY):
-		t=Tile()
-		grid[x].append(t)
-		t.x=x
-		t.y=y
+
+
 
 class Entity:
 	eType="entity"
 	name="name"
+	pic=""
 	foodmax=0
 	food=0
 	foodrate=0;
@@ -34,7 +29,7 @@ class Entity:
 		tickCommon()
 		tickSpecial()
 	
-	def tickSpecial():
+	def tickSpecial():#tick specific to sub classes. overide it
 		pass
 	
 	def initCommon():
@@ -62,7 +57,14 @@ class Tile:
 	env=TileEnv()
 	entity=list()
 
-
+grid=list()
+for x in range(worldX):
+	grid.append(list())
+	for y in range(worldY):
+		t=Tile()
+		grid[x].append(t)
+		t.x=x
+		t.y=y
 
 def tick():
 	for x in grid:#x is row
