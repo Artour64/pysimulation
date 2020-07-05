@@ -3,10 +3,17 @@ worldY=24
 
 grid=list()
 
+class Entity:
+	pass
+
+class TileEnv:
+	pass
+
 class Tile:
 	x=0
 	y=0
-	pass
+	env=TileEnv()
+	entity=list()
 
 for x in range(worldX):
 	grid.append(list())
