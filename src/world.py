@@ -4,7 +4,44 @@ worldY=24
 grid=list()
 
 class Entity:
-	pass
+	eType="entity"
+	name="name"
+	foodmax=0
+	food=0
+	foodrate=0;
+	
+	hungerDamage=0
+	
+	healthmax=0
+	health=0
+	healthrate=0;
+	
+	def tickCommon():
+		food-=foodrate
+		if(food<0):
+			food=0
+			health-=hungerDamage
+		health+=healthrate
+		tickSpecial()
+	
+	def tickSpecial():
+		pass
+	
+	def initCommon():
+		name=eType
+	
+	def initHealthy():
+		initCommon()
+		food=foodmax
+		health=healthmax
+	
+
+class Plant(Entity):
+	foodmax=10
+	foodrate=-1
+	
+	healthmax=10
+	healthmax=1
 
 class TileEnv:
 	pass
