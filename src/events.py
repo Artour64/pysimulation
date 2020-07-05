@@ -1,4 +1,5 @@
 import pygame
+import world as w
 running=True
 def event(event):
 	if event.type == pygame.QUIT:
