@@ -22,6 +22,9 @@ class Entity:
 			food=0
 			health-=hungerDamage
 		health+=healthrate
+	
+	def tick():
+		tickCommon()
 		tickSpecial()
 	
 	def tickSpecial():
@@ -59,4 +62,9 @@ for x in range(worldX):
 		grid[x].append(t)
 		t.x=x
 		t.y=y
-		
+
+def tick():
+	for x in grid:#x is row
+		for y in x:#y is tile
+			for c in y.entity:#c is entity
+				c.tick()#entity tick

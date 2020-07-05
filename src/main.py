@@ -9,5 +9,6 @@ render.renderInit()
 while ev.running:
 	for event in pygame.event.get():
 		ev.event(event)
+	world.tick()
 	render.renderTick()
     
