@@ -2,6 +2,13 @@ worldX=32
 worldY=24
 
 grid=list()
+for x in range(worldX):
+	grid.append(list())
+	for y in range(worldY):
+		t=Tile()
+		grid[x].append(t)
+		t.x=x
+		t.y=y
 
 class Entity:
 	eType="entity"
@@ -55,16 +62,11 @@ class Tile:
 	env=TileEnv()
 	entity=list()
 
-for x in range(worldX):
-	grid.append(list())
-	for y in range(worldY):
-		t=Tile()
-		grid[x].append(t)
-		t.x=x
-		t.y=y
+
 
 def tick():
 	for x in grid:#x is row
 		for y in x:#y is tile
 			for c in y.entity:#c is entity
 				c.tick()#entity tick
+	
