@@ -4,10 +4,15 @@ worldY=24
 grid=list()
 
 class Tile:
+	x=0
+	y=0
 	pass
 
 for x in range(worldX):
-	grid.add(list())
+	grid.append(list())
 	for y in range(worldY):
-		grid[y].add(Tile())
+		t=Tile()
+		grid[x].append(t)
+		t.x=x
+		t.y=y
 		
