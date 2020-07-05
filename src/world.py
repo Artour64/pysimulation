@@ -1,9 +1,6 @@
 worldX=32
 worldY=24
 
-
-
-
 class Entity:
 	eType="entity"
 	name="name"
@@ -65,6 +62,7 @@ for x in range(worldX):
 		grid[x].append(t)
 		t.x=x
 		t.y=y
+
 
 def tick():
 	for x in grid:#x is row
