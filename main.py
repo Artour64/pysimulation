@@ -6,7 +6,7 @@ pygame.init()
 #GUI dimensions
 
 worldX=32
-worldY=16
+worldY=24
 
 tileSize=32
 tileTotal=tileSize+1;
@@ -49,7 +49,7 @@ def render():
 	pygame.draw.line(screen,clrwhite,np.add(wc,(xGridTotal,0)),np.add(wc,(xGridTotal,yGridTotal)),1)
 	
 	#text
-	text = font.render("Hello Text", True, (255, 255, 255))
+	text = font.render("Hello Text", True, clrwhite)
 	screen.blit(text, (10, 10))
 	
 	pygame.display.update()
