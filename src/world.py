@@ -1,3 +1,5 @@
+from random import random
+
 worldX=32
 worldY=24
 
@@ -63,10 +65,16 @@ for x in range(worldX):
 		t.x=x
 		t.y=y
 
+def worldGen():
+	for i in range(15):
+		randX = random.randrange(worldX)
+		randY = random.randrange(worldY)
 
+		grid[randX][randY].entity.append(Plant())
 def tick():
 	for x in grid:#x is row
 		for y in x:#y is tile
 			for c in y.entity:#c is entity
 				c.tick()#entity tick
 	
+
