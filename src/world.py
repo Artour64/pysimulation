@@ -21,9 +21,6 @@ class Entity:
 			food=0
 			health-=hungerDamage
 		health+=healthrate
-	
-	def tick():
-		tickCommon()
 		tickSpecial()
 	
 	def tickSpecial():#tick specific to sub classes. overide it
@@ -65,8 +62,7 @@ for x in range(worldX):
 
 
 def tick():
-	for x in grid:#x is row
-		for y in x:#y is tile
-			for c in y.entity:#c is entity
-				c.tick()#entity tick
-	
+    for x in grid:#x is row
+        for y in x:#y is tile
+            for c in y.entity:#c is entity
+                c.tick()#entity tick
