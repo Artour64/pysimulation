@@ -1,44 +1,49 @@
+import random
+
 worldX=32
 worldY=24
 
 class Entity:
 	eType="entity"
-	name="name"
 	pic=""
+	
 	foodmax=0
-	food=0
 	foodrate=0;
-	
 	hungerDamage=0
-	
 	healthmax=0
-	health=0
 	healthrate=0;
 	
-	def tickCommon():
-		food-=foodrate
-		if(food<0):
-			food=0
-			health-=hungerDamage
-		health+=healthrate
+	def __init__(self):
+		self.name="eType"
+		self.food=0
+		self.health=0
 	
-	def tick():
-		tickCommon()
-		tickSpecial()
+	def tickCommon(self):
+		self.food-=self.foodrate
+		if(self.food<0):
+			self.food=0
+			self.health-=self.hungerDamage
+		self.health+=self.healthrate
 	
-	def tickSpecial():#tick specific to sub classes. overide it
+	def tick(self):
+		self.tickCommon()
+		self.tickSpecial()
+	
+	def tickSpecial(self):#tick specific to sub classes. overide it
 		pass
 	
-	def initCommon():
-		name=eType
+	def initCommon(self):
+		self.name=self.eType
 	
-	def initHealthy():
-		initCommon()
-		food=foodmax
-		health=healthmax
+	def initHealthy(self):
+		self.initCommon()
+		self.food=self.foodmax
+		self.health=self.healthmax
 	
 
 class Plant(Entity):
+	eType="plant"
+	pic="grass.png"
 	foodmax=10
 	foodrate=-1
 	
@@ -51,8 +56,9 @@ class TileEnv:
 class Tile:
 	x=0
 	y=0
-	env=TileEnv()
-	entity=list()
+	def __init__(self):
+		self.env=TileEnv()
+		self.entity=list()
 
 grid=list()
 for x in range(worldX):
@@ -62,7 +68,22 @@ for x in range(worldX):
 		grid[x].append(t)
 		t.x=x
 		t.y=y
+		#print((id(t),id(t.entity)))
 
+def worldGen():
+	for i in range(64):
+		randX = random.randrange(worldX)
+		randY = random.randrange(worldY)
+		grid[randX][randY].entity.append(Plant())
+		
+def printworld():
+	s="\n"
+	for x in grid:
+		for y in x:
+			e=y.entity
+			s+=str(id(e))+","
+		s+="\n"
+	print(s)
 
 def tick():
 	for x in grid:#x is row

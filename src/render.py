@@ -17,6 +17,7 @@ sizebarleft=50
 sizebarright=50
 
 wc=(sizebarleft,sizebartop)
+to=np.add(wc,(1,1))
 
 screenX=xGridTotal+sizebarright+sizebarleft
 screenY=yGridTotal+sizebartop+sizebarbottom
@@ -36,9 +37,25 @@ clrwhite=(255, 255, 255)
 bgcolor=(50,50,50)
 clrwhite=(255, 255, 255)
 
+
+def renderTiles():
+	for x in w.grid:#x is row
+		for y in x:#y is tile
+			renderTile(y)
+
+def renderTile(t):
+	for c in t.entity:
+		image=pygame.image.load("src/images/entities/"+c.pic)
+		cord=(t.x, t.y)
+		cord=np.multiply(tileTotal,cord)
+		cord=np.add(to,cord)
+		screen.blit(image, cord)
+		#print(c)
+
 def renderInit():
 	screen.fill(bgcolor)
 	renderGridBorder()
+	renderTiles()
 	pygame.display.update()
 
 def renderGridBorder():
