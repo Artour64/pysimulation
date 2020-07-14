@@ -37,9 +37,10 @@ clrwhite=(255, 255, 255)
 bgcolor=(50,50,50)
 clrwhite=(255, 255, 255)
 
+world=0;
 
 def renderTiles():
-	for x in w.grid:#x is row
+	for x in world.grid:#x is row
 		for y in x:#y is tile
 			renderTile(y)
 

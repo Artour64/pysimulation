@@ -1,5 +1,6 @@
 import random
 
+#defaults
 worldX=32
 worldY=24
 
@@ -54,40 +55,44 @@ class TileEnv:
 	pass
 
 class Tile:
-	x=0
-	y=0
 	def __init__(self):
+		self.x=0
+		self.y=0
 		self.env=TileEnv()
 		self.entity=list()
-
-grid=list()
-for x in range(worldX):
-	grid.append(list())
-	for y in range(worldY):
-		t=Tile()
-		grid[x].append(t)
-		t.x=x
-		t.y=y
-		#print((id(t),id(t.entity)))
-
-def worldGen():
-	for i in range(64):
-		randX = random.randrange(worldX)
-		randY = random.randrange(worldY)
-		grid[randX][randY].entity.append(Plant())
 		
-def printworld():
-	s="\n"
-	for x in grid:
-		for y in x:
-			e=y.entity
-			s+=str(id(e))+","
-		s+="\n"
-	print(s)
+class World:
+	def __init__(self):
+		self.worldX=worldX
+		self.worldY=worldY
+		self.grid=list()
+		for x in range(self.worldX):
+			self.grid.append(list())
+			for y in range(self.worldY):
+				t=Tile()
+				self.grid[x].append(t)
+				t.x=x
+				t.y=y
+				#print((id(t),id(t.entity)))
 
-def tick():
-	for x in grid:#x is row
-		for y in x:#y is tile
-			for c in y.entity:#c is entity
-				c.tick()#entity tick
+	def worldGen(self):
+		for i in range(64):
+			randX = random.randrange(self.worldX)
+			randY = random.randrange(self.worldY)
+			self.grid[randX][randY].entity.append(Plant())
 	
+	def tick(self):
+		for x in self.grid:#x is row
+			for y in x:#y is tile
+				for c in y.entity:#c is entity
+					c.tick()#entity tick
+	'''	
+	def print(self):
+		s="\n"
+		for x in self.grid:
+			for y in x:
+				e=y.entity
+				s+=str(id(e))+","
+			s+="\n"
+		print(s)
+	'''
