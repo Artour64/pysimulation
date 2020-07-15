@@ -2,7 +2,7 @@ import random
 import entity
 import tileEnvironment as tenv
 
-#defaults
+#default size
 worldX=32
 worldY=24
 
@@ -14,9 +14,12 @@ class Tile:
 		self.entity=list()
 		
 class World:
-	def __init__(self):
-		self.worldX=worldX
-		self.worldY=worldY
+	def __init__(self,x=worldX,y=worldY):
+		self.makeGrid()
+	
+	def makeGrid(self,x=worldX,y=worldY):
+		self.worldX=x
+		self.worldY=y
 		self.grid=list()
 		for x in range(self.worldX):
 			self.grid.append(list())
@@ -30,7 +33,7 @@ class World:
 	def worldGen(self):
 		randX = random.randrange(self.worldX)
 		randY = random.randrange(self.worldY)
-		for i in range(128):#generate plants
+		for i in range(64):#generate plants
 			attemps=0
 			while(len(self.grid[randX][randY].entity)>0):
 				randX = random.randrange(self.worldX)

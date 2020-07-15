@@ -13,7 +13,10 @@ class Entity:
 		if(self.food<0):
 			self.food=0
 			self.health-=self.hungerDamage
+			
 		self.health+=self.healthrate
+		if(self.health>self.healthmax):
+			self.health=self.healthmax
 	
 	def tickSpecial(self):#tick specific to sub classes. overide it
 		pass
