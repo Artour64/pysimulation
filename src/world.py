@@ -14,11 +14,6 @@ class Entity:
 	healthmax=0
 	healthrate=0;
 	
-	def __init__(self):
-		self.name="eType"
-		self.food=0
-		self.health=0
-	
 	def tickCommon(self):
 		self.food-=self.foodrate
 		if(self.food<0):
@@ -26,21 +21,27 @@ class Entity:
 			self.health-=self.hungerDamage
 		self.health+=self.healthrate
 	
+	def tickSpecial(self):#tick specific to sub classes. overide it
+		pass
+		
 	def tick(self):
 		self.tickCommon()
 		self.tickSpecial()
 	
-	def tickSpecial(self):#tick specific to sub classes. overide it
-		pass
-	
 	def initCommon(self):
 		self.name=self.eType
 	
+	def initSpecial(self):
+		pass
+	
 	def initHealthy(self):
 		self.initCommon()
+		self.initSpecial()
 		self.food=self.foodmax
 		self.health=self.healthmax
 	
+	def __init__(self):
+		self.initHealthy()
 
 class Plant(Entity):
 	eType="plant"
@@ -76,10 +77,20 @@ class World:
 				#print((id(t),id(t.entity)))
 
 	def worldGen(self):
-		for i in range(64):
-			randX = random.randrange(self.worldX)
-			randY = random.randrange(self.worldY)
+		randX = random.randrange(self.worldX)
+		randY = random.randrange(self.worldY)
+		for i in range(128):
+			attemps=0
+			while(len(self.grid[randX][randY].entity)>0):
+				randX = random.randrange(self.worldX)
+				randY = random.randrange(self.worldY)
+				attemps+=1
+				if(attemps>100):
+					break
+			if(attemps>100):
+					break
 			self.grid[randX][randY].entity.append(Plant())
+			
 	
 	def tick(self):
 		for x in self.grid:#x is row
@@ -95,4 +106,5 @@ class World:
 				s+=str(id(e))+","
 			s+="\n"
 		print(s)
-	'''
+	#'''
+	
