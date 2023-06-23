@@ -33,6 +33,7 @@ def gen_bit(w):
 					r.renderTile(w.grid[x][y])
 					did = True
 				elif thisLen == 0:
+					clearAround(w,data,x,y)
 					#print("backtrack not implemented")
 					pass
 				elif not did:
@@ -52,7 +53,21 @@ def gen_bit(w):
 					choiceList.append(c)
 		tile.env = tenv.getTile(random.choice(choiceList))
 		r.renderTile(tile)
-					
+
+
+def clearAround(w,data,x,y):
+	import render as r
+	global adjoffsets
+	for c in adjoffsets:
+		x2 = x + c[0]
+		y2 = y + c[1]
+		if x2 > -1 and y2 > -1:
+			if x2 < len(data) and y2 < len(data[x]):
+				w.grid[x2][y2].env=tenv.TileEnv()
+				data[x2][y2] = tenv.allset()
+				r.renderTile(w.grid[x2][y2])
+	data[x][y] = tenv.allset()
+	r.renderTile(w.grid[x][y])
 
 def filter_square(w,data,x,y):
 	global adjoffsets
