@@ -26,7 +26,7 @@ tiles = {
 			"flower1","flower2","flower3",
 			"flower4","flower5","flower6"
 		},
-		1000
+		600
 	),
 
 	TileEnv("flower1", {"grass"},flowerWeight),

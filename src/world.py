@@ -7,8 +7,8 @@ import worldgen
 worldX=32
 worldY=24
 
-worldX=100
-worldY=50
+worldX=119
+worldY=63
 
 class Tile:
 	def __init__(self):

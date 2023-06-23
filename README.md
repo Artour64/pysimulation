@@ -17,3 +17,11 @@ Written in python.
  - worldgen.py has the wave function collapse algorithm that does the world generation
  - images/entities not being used at the moment
  - images/tiles directory(folder) containing images for the world map tiles
+
+### To Do
+ - propagation
+ - backtrack on fail
+ - round corners (visual)
+ - saving
+ - keyboard input
+ - cli mode
