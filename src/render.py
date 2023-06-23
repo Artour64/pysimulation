@@ -4,8 +4,13 @@ import numpy as np
 
 world=0#placeholder, set in main.py
 
+showGrid = True
+showGrid = False
+
 tileSize=32
-tileTotal=tileSize+1;
+tileTotal=tileSize;
+if showGrid:
+	tileTotal += 1
 
 #icon = pygame.image.load("snake-clip.png")
 #pygame.display.set_icon(icon)
@@ -19,6 +24,11 @@ sizebartop=50
 sizebarbottom=50
 sizebarleft=50
 sizebarright=50
+
+sizebartop=0
+sizebarbottom=0
+sizebarleft=0
+sizebarright=0
 
 wc=(sizebarleft,sizebartop)
 to=np.add(wc,(1,1))
@@ -48,7 +58,7 @@ def renderInit():
 	global screenY
 	global screen
 	
-	tileTotal=tileSize+1;
+	#tileTotal=tileSize+1;
 	
 	xGridTotal=world.worldX*tileTotal
 	yGridTotal=world.worldY*tileTotal
@@ -67,7 +77,7 @@ def renderTiles():
 		for y in x:#y is tile
 			renderTile(y)
 
-def renderTile(t):
+def renderTileOld(t):
 	for c in t.entity:
 		image=pygame.image.load("src/images/entities/"+c.pic)
 		cord=(t.x, t.y)
@@ -76,6 +86,13 @@ def renderTile(t):
 		screen.blit(image, cord)
 		#print(c)
 
+def renderTile(t):
+	image=pygame.image.load("src/images/tiles/"+t.env.type+".png")
+	cord=(t.x, t.y)
+	cord=np.multiply(tileTotal,cord)
+	cord=np.add(to,cord)
+	screen.blit(image, cord)
+
 def renderFirst():
 	screen.fill(bgcolor)
 	renderGridBorder()
@@ -83,6 +100,9 @@ def renderFirst():
 	pygame.display.update()
 
 def renderGridBorder():
+	global showGrid
+	if not showGrid:
+		return
 	for x in range(world.worldX):
 		pygame.draw.line(screen,clrwhite,np.add(wc,(x*tileTotal,0)),np.add(wc,(x*tileTotal,yGridTotal)),1)
 	for y in range(world.worldY):
@@ -92,7 +112,7 @@ def renderGridBorder():
 	
 def renderTick():
 	#text
-	text = font.render("Hello Text", True, clrwhite)
-	screen.blit(text, (10, 10))
-	
+	#text = font.render("Hello Text", True, clrwhite)
+	#screen.blit(text, (10, 10))
+	#renderTiles()
 	pygame.display.update()

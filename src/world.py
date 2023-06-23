@@ -1,10 +1,14 @@
 import random
 import entity
 import tileEnvironment as tenv
+import worldgen
 
 #default size
 worldX=32
 worldY=24
+
+worldX=100
+worldY=50
 
 class Tile:
 	def __init__(self):
@@ -30,7 +34,7 @@ class World:
 				t.y=y
 				#print((id(t),id(t.entity)))
 
-	def worldGen(self):
+	def worldGenOld(self):
 		randX = random.randrange(self.worldX)
 		randY = random.randrange(self.worldY)
 		for i in range(64):#generate plants
@@ -44,13 +48,19 @@ class World:
 			if(attemps>100):
 					break
 			self.grid[randX][randY].entity.append(entity.Plant())
+	
+	def worldGen(self):
+		pass
 			
 	
-	def tick(self):
+	def tickOld(self):
 		for x in self.grid:#x is row
 			for y in x:#y is tile
 				for c in y.entity:#c is entity
 					c.tick()#entity tick
+
+	def tick(self):
+		worldgen.gen_bit(self)
 	'''	
 	def print(self):
 		s="\n"
