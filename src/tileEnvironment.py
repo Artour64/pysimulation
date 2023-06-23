@@ -37,6 +37,8 @@ tiles = {
 	TileEnv("flower6", {"grass"},flowerWeight)
 }
 
+corners = {"grass","sand","water","deepwater"}
+
 #config
 #---------------------------------------------------------
 

@@ -72,3 +72,18 @@ class World:
 		print(s)
 	#'''
 	
+	#the out of bounds check is the purpose of this method
+	def tileAt(self,x,y):
+		if x < 0 or y < 0:
+			return None
+			
+		g = self.grid
+		if x >= len(g):
+			return None
+		
+		g = g[x]
+		if y >= len(g):
+			return None
+			
+		return g[y]
+	

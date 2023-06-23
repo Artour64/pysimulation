@@ -2,6 +2,8 @@ import pygame
 import world as w
 import numpy as np
 
+import tileEnvironment as tenv
+
 world=0#placeholder, set in main.py
 
 showGrid = True
@@ -86,12 +88,128 @@ def renderTileOld(t):
 		screen.blit(image, cord)
 		#print(c)
 
+def renderTileLite(t):
+	image=pygame.image.load("src/images/tiles/"+t.env.type+".png")
+	cord=(t.x, t.y)
+	cord=np.multiply(tileTotal,cord)
+	cord=np.add(to,cord)
+	screen.blit(image, cord)
+
 def renderTile(t):
 	image=pygame.image.load("src/images/tiles/"+t.env.type+".png")
 	cord=(t.x, t.y)
 	cord=np.multiply(tileTotal,cord)
 	cord=np.add(to,cord)
 	screen.blit(image, cord)
+	
+	renderCorners(t, cord)
+	
+	renderAdjCorners(t)
+
+def renderAdjCorners(t):
+	offsets = (
+		(0,1),(0,-1),(1,0),(-1,0)
+		,(1,1),(-1,1),(1,-1),(-1,-1)
+	)
+	
+	#offsets = []
+	#for x in range(-5,5):
+	#	for y in range(-5,5):
+	#		offsets.append((x,y))
+	
+	for c in offsets:
+		t1 = np.add((t.x,t.y),c)
+		cord = t1
+		cord=np.multiply(tileTotal,cord)
+		cord=np.add(to,cord)
+		t1=world.tileAt(t1[0],t1[1])
+		renderCorners(t1, cord)
+	
+
+def renderCorners(t, cord):
+	if t == None:
+		return
+	if t.env.type in tenv.corners:
+		renderTileLite(t)
+		renderTopLeftCorner(t, cord)
+		renderTopRightCorner(t, cord)
+		renderBottomRightCorner(t, cord)
+		renderBottomLeftCorner(t, cord)
+
+def getCorner(cord,s1,s2):
+	global world
+	
+	t1 = np.add(cord,s1)
+	t1 = world.tileAt(t1[0],t1[1])
+	if t1 == None:
+		return None
+	
+	t1 = t1.env.type
+	if not t1 in tenv.corners:
+		return None
+	
+	t2 = np.add(cord,s2)
+	t2 = world.tileAt(t2[0],t2[1])
+	if t2 == None:
+		return None
+		
+	t2 = t2.env.type
+	if t1 != t2:
+		return None
+	
+	return t2
+
+def renderTopLeftCorner(t,cord):
+	corner = getCorner((t.x,t.y),(0,-1),(-1,0))
+	if corner == None:
+		return
+	
+	i0=pygame.image.load("src/images/corners/"+corner+".png")
+	screen.blit(i0, cord)
+	
+def renderTopRightCorner(t,cord):
+	global world
+	corner = getCorner((t.x,t.y),(0,-1),(1,0))
+	if corner == None:
+		return
+	
+	t1 = (1,-1)
+	t1 = np.add((t.x,t.y),t1)
+	t1 = world.tileAt(t1[0],t1[1])
+	if t1 != None:
+		if t1.env.type == t.env.type:
+			return
+	
+	i0=pygame.image.load("src/images/corners/"+corner+".png")
+	i1=pygame.transform.rotate(i0,270)
+	screen.blit(i1, cord)
+	
+def renderBottomRightCorner(t,cord):
+	corner = getCorner((t.x,t.y),(0,1),(1,0))
+	if corner == None:
+		return
+	
+	i0=pygame.image.load("src/images/corners/"+corner+".png")
+	i1=pygame.transform.rotate(i0,180)
+	screen.blit(i1, cord)
+	
+def renderBottomLeftCorner(t,cord):
+	global world
+	corner = getCorner((t.x,t.y),(0,1),(-1,0))
+	if corner == None:
+		return
+		
+	t1 = (-1,1)
+	t1 = np.add((t.x,t.y),t1)
+	t1 = world.tileAt(t1[0],t1[1])
+	if t1 != None:
+		if t1.env.type == t.env.type:
+			return
+	
+	i0=pygame.image.load("src/images/corners/"+corner+".png")
+	i1=pygame.transform.rotate(i0,90)
+	screen.blit(i1, cord)
+	
 
 def renderFirst():
 	screen.fill(bgcolor)
