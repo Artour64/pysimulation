@@ -14,12 +14,15 @@ tiles = {
 	TileEnv("forest", {"forest","tree"}),
 	TileEnv("tree", {"tree","grass","forest"}),
 	TileEnv("sand", {"water","sand","grass"}),
-	TileEnv("water", {"water","sand"}),
-	TileEnv("tallgrass", {"tallgrass","grass"}),
+	TileEnv("water", {"water","sand","deepwater"}),
+	TileEnv("deepwater", {"water","deepwater"},50),
+	TileEnv("tallgrass", {"tallgrass","grass", "rock"}),
+	TileEnv("rock", {"rock","grass","tallgrass"},50),
+	
 	TileEnv(
 		"grass",
 	 	{
-			"grass","tallgrass","sand","tree",
+			"grass","tallgrass","sand","tree", "rock",
 			"flower1","flower2","flower3",
 			"flower4","flower5","flower6"
 		},

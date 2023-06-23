@@ -4,6 +4,8 @@ import tileEnvironment as tenv
 
 dCache = None
 
+adjoffsets = [[0,1],[0,-1],[1,0],[-1,0]]
+
 def gen_bit(w):
 	import render as r
 	global dCache
@@ -53,11 +55,9 @@ def gen_bit(w):
 					
 
 def filter_square(w,data,x,y):
+	global adjoffsets
 	adj = set()
-	
-	offsets = [[0,1],[0,-1],[1,0],[-1,0]]
-	
-	for c in offsets:
+	for c in adjoffsets:
 		x2 = x + c[0]
 		y2 = y + c[1]
 		if x2 > -1 and y2 > -1:
