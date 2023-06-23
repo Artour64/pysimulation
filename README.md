@@ -1,6 +1,6 @@
 # pysimulation
-A procedural world generation demo.
-Uses the wave function collapse algorithm.
+A procedural world generation demo.  
+Uses the wave function collapse algorithm.  
 Written in python.
  - - - -
 ### Written in python with:
